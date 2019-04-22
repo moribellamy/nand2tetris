@@ -16,68 +16,7 @@ CHIP Mux4Way16 {
     OUT out[16];
 
     PARTS:
-    // Decoder
-    Not(in=sel[1], out=nsel1);
-    Not(in=sel[0], out=nsel0);
-
-    Nand(a=nsel1, b=nsel0, out=zeroForA);
-    Nand(a=nsel1, b=sel[0], out=zeroForB);
-    Nand(a=sel[1], b=nsel0, out=zeroForC);
-    Nand(a=sel[1], b=sel[0], out=zeroForD);
-
-    // Mux A and B.
-    Mux(a=a[0], b=b[0], sel=zeroForA, out=ab0);
-    Mux(a=a[1], b=b[1], sel=zeroForA, out=ab1);
-    Mux(a=a[2], b=b[2], sel=zeroForA, out=ab2);
-    Mux(a=a[3], b=b[3], sel=zeroForA, out=ab3);
-    Mux(a=a[4], b=b[4], sel=zeroForA, out=ab4);
-    Mux(a=a[5], b=b[5], sel=zeroForA, out=ab5);
-    Mux(a=a[6], b=b[6], sel=zeroForA, out=ab6);
-    Mux(a=a[7], b=b[7], sel=zeroForA, out=ab7);
-    Mux(a=a[8], b=b[8], sel=zeroForA, out=ab8);
-    Mux(a=a[9], b=b[9], sel=zeroForA, out=ab9);
-    Mux(a=a[10], b=b[10], sel=zeroForA, out=ab10);
-    Mux(a=a[11], b=b[11], sel=zeroForA, out=ab11);
-    Mux(a=a[12], b=b[12], sel=zeroForA, out=ab12);
-    Mux(a=a[13], b=b[13], sel=zeroForA, out=ab13);
-    Mux(a=a[14], b=b[14], sel=zeroForA, out=ab14);
-    Mux(a=a[15], b=b[15], sel=zeroForA, out=ab15);
-
-    // Mux C and D.
-    Mux(a=c[0], b=d[0], sel=zeroForC, out=cd0);
-    Mux(a=c[1], b=d[1], sel=zeroForC, out=cd1);
-    Mux(a=c[2], b=d[2], sel=zeroForC, out=cd2);
-    Mux(a=c[3], b=d[3], sel=zeroForC, out=cd3);
-    Mux(a=c[4], b=d[4], sel=zeroForC, out=cd4);
-    Mux(a=c[5], b=d[5], sel=zeroForC, out=cd5);
-    Mux(a=c[6], b=d[6], sel=zeroForC, out=cd6);
-    Mux(a=c[7], b=d[7], sel=zeroForC, out=cd7);
-    Mux(a=c[8], b=d[8], sel=zeroForC, out=cd8);
-    Mux(a=c[9], b=d[9], sel=zeroForC, out=cd9);
-    Mux(a=c[10], b=d[10], sel=zeroForC, out=cd10);
-    Mux(a=c[11], b=d[11], sel=zeroForC, out=cd11);
-    Mux(a=c[12], b=d[12], sel=zeroForC, out=cd12);
-    Mux(a=c[13], b=d[13], sel=zeroForC, out=cd13);
-    Mux(a=c[14], b=d[14], sel=zeroForC, out=cd14);
-    Mux(a=c[15], b=d[15], sel=zeroForC, out=cd15);
-
-    // Mux final value.
-    Xor(a=zeroForC, b=zeroForD, out=isCorD);
-
-    Mux(a=ab0, b=cd0, sel=isCorD, out=out[0]);
-    Mux(a=ab1, b=cd1, sel=isCorD, out=out[1]);
-    Mux(a=ab2, b=cd2, sel=isCorD, out=out[2]);
-    Mux(a=ab3, b=cd3, sel=isCorD, out=out[3]);
-    Mux(a=ab4, b=cd4, sel=isCorD, out=out[4]);
-    Mux(a=ab5, b=cd5, sel=isCorD, out=out[5]);
-    Mux(a=ab6, b=cd6, sel=isCorD, out=out[6]);
-    Mux(a=ab7, b=cd7, sel=isCorD, out=out[7]);
-    Mux(a=ab8, b=cd8, sel=isCorD, out=out[8]);
-    Mux(a=ab9, b=cd9, sel=isCorD, out=out[9]);
-    Mux(a=ab10, b=cd10, sel=isCorD, out=out[10]);
-    Mux(a=ab11, b=cd11, sel=isCorD, out=out[11]);
-    Mux(a=ab12, b=cd12, sel=isCorD, out=out[12]);
-    Mux(a=ab13, b=cd13, sel=isCorD, out=out[13]);
-    Mux(a=ab14, b=cd14, sel=isCorD, out=out[14]);
-    Mux(a=ab15, b=cd15, sel=isCorD, out=out[15]);
+    Mux16(a=a, b=b, sel=sel[0], out=outab);
+    Mux16(a=c, b=d, sel=sel[0], out=outcd);
+    Mux16(a=outab, b=outcd, sel=sel[1], out=out);
 }
