@@ -1,0 +1,9 @@
+
+CHIP Reg1 {
+  IN load, in;
+  OUT out;
+
+  PARTS:
+  Mux(a=feedback, b=in, sel=load, out=muxed);
+  DFF(in=muxed, out=feedback, out=out);
+}
